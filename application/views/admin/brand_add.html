@@ -15,7 +15,7 @@
 </h1>
 
 <div class="main-div">
-<form method="post" action="brand.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<form method="post" action="<?php echo site_url('admin/brand/insert');?>" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
 <table cellspacing="1" cellpadding="3" width="100%">
   <tbody><tr>
     <td class="label">品牌名称</td>
@@ -23,7 +23,7 @@
   </tr>
   <tr>
     <td class="label">品牌网址</td>
-    <td><input type="text" name="site_url" maxlength="60" size="40" value=""></td>
+    <td><input type="text" name="url" maxlength="60" size="40" value=""></td>
   </tr>
   <tr>
     <td class="label"><a href="javascript:showNotice('warn_brandlogo');" title="点击此处查看提示信息">
@@ -34,7 +34,7 @@
   </tr>
   <tr>
     <td class="label">品牌描述</td>
-    <td><textarea name="brand_desc" cols="60" rows="4"></textarea></td>
+    <td><textarea name="brand_description" cols="60" rows="4"></textarea></td>
   </tr>
   <tr>
     <td class="label">排序</td>

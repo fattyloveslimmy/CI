@@ -20,6 +20,8 @@ class Admin_Controller extends CI_Controller{
         parent::__construct();
         //关闭自定义皮肤功能 , 此时视图对应文件夹为 views/admin
         $this->load->switch_themes_on();
+        //激活分析器以调试程序
+        $this->output->enable_profiler(TRUE);
 
         //权限认证
         if(!$this->session->userdata('admin')){

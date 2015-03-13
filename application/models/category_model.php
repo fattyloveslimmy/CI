@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Category_model extends CI_Model {
 
-    const TBL_CATE = 'cz_category';
+    const TBL_CATE = 'category';
 
     public function list_cate($pid = 0) {
         //获取所有的记录
@@ -34,9 +34,29 @@ class Category_model extends CI_Model {
                 $v['level'] = $level;
                 $tree[] = $v;
                 //然后以该节点为父节点 , 继续找其后代节点
-                $this->_tree($arr, $v['cat_id'], $level + 1);
+                $this->_tree($arr, $v['cate_id'], $level + 1);
             }
         }
         return $tree;
     }
+
+    //插入类别
+    public function add_category($data) {
+        return $this->db->insert(self::TBL_CATE, $data);
+    }
+
+    //获取单条 分类 记录
+    public function get_category($cate_id){
+        $condition['cate_id'] = $cate_id;
+        $query = $this->db->where($condition)->get(self::TBL_CATE);
+        //返回单条记录
+        return $query->row_array();
+    }
+
+    public function update_category($data,$cate_id){
+        $condition['cate_id'] = $cate_id;
+        $query = $this->db->where($condition)->update(self::TBL_CATE,$data);
+        return $this->db->affected_rows();
+    }
+
 }

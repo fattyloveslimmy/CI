@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2015-03-10 18:15:00
+Date: 2015-03-13 18:28:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -84,17 +84,29 @@ DROP TABLE IF EXISTS `cz_brand`;
 CREATE TABLE `cz_brand` (
   `brand_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品品牌ID',
   `brand_name` varchar(30) NOT NULL DEFAULT '' COMMENT '商品品牌名称',
-  `brand_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '商品品牌描述',
+  `brand_description` varchar(255) NOT NULL DEFAULT '' COMMENT '商品品牌描述',
   `url` varchar(100) NOT NULL DEFAULT '' COMMENT '商品品牌网址',
   `logo` varchar(50) NOT NULL DEFAULT '' COMMENT '品牌logo',
   `sort_order` tinyint(3) unsigned NOT NULL DEFAULT '50' COMMENT '商品品牌排序依据',
   `is_show` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否显示，默认显示',
   PRIMARY KEY (`brand_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cz_brand
 -- ----------------------------
+INSERT INTO `cz_brand` VALUES ('1', '诺基亚', '公司网站：http://www.nokia.com.cn/ 客服电话：...', 'http://www.nokia.com.cn/', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('2', '摩托罗拉', '官方咨询电话：4008105050 售后网点：http://www.mo...', 'http://www.motorola.com.cn', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('3', '多普达', '官方咨询电话：4008201668 售后网点：http://www.do...', 'http://www.dopod.com', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('4', '飞利浦', '官方咨询电话：4008800008 售后网点：http://www.ph...', 'http://www.philips.com.cn', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('5', '夏新', '官方咨询电话：4008875777 售后网点：http://www.am...', '	http://www.amobile.com.cn', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('6', '三星', '官方咨询电话：8008105858 售后网点：http://cn.sam...', 'http://cn.samsungmobile.com', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('7', '索爱', '官方咨询电话：4008100000 售后网点：http://www.so...', 'http://www.sonyericsson.com.cn', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('8', 'LG', '官方咨询电话：4008199999 售后网点：http://www.lg...', 'http://cn.wowlg.com', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('9', '联想', '官方咨询电话：4008188818 售后网点：http://www.le...', 'http://www.lenovomobile.com/', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('10', '金立', '官方咨询电话：4007796666 售后网点：http://www.gi...', 'http://www.gionee.net', '', '50', '1');
+INSERT INTO `cz_brand` VALUES ('11', '品牌10', '0', 'http://bbs.pcbeta.com/', '', '50', '0');
+INSERT INTO `cz_brand` VALUES ('12', '品牌2', 'open189/sms/proxy', 'http://101.227.251.180:10001/open189/sms/proxy.php', '', '50', '1');
 
 -- ----------------------------
 -- Table structure for cz_cart
@@ -123,30 +135,33 @@ CREATE TABLE `cz_cart` (
 -- ----------------------------
 DROP TABLE IF EXISTS `cz_category`;
 CREATE TABLE `cz_category` (
-  `cat_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品类别ID',
-  `cat_name` varchar(30) NOT NULL DEFAULT '' COMMENT '商品类别名称',
+  `cate_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品类别ID',
+  `cate_name` varchar(30) NOT NULL DEFAULT '' COMMENT '商品类别名称',
   `parent_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '商品类别父ID',
-  `cat_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '商品类别描述',
-  `sort_order` tinyint(4) NOT NULL DEFAULT '50' COMMENT '排序依据',
+  `sort_order` int(10) NOT NULL DEFAULT '50' COMMENT '排序依据',
   `unit` varchar(15) NOT NULL DEFAULT '' COMMENT '单位',
   `is_show` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否显示，默认显示',
-  PRIMARY KEY (`cat_id`),
+  `show_in_nav` tinyint(4) NOT NULL DEFAULT '0',
+  `cate_recommend` varchar(20) NOT NULL DEFAULT '',
+  `cate_description` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`cate_id`),
   KEY `pid` (`parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cz_category
 -- ----------------------------
-INSERT INTO `cz_category` VALUES ('1', '手机类型', '0', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('2', '充值卡', '0', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('3', '手机配件', '0', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('4', 'CDMA手机', '1', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('5', '3G手机', '1', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('6', 'iphone 4s', '5', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('7', '联通手机充值卡', '2', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('8', '移动手机充值卡', '2', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('9', '耳机', '3', '', '50', '', '1');
-INSERT INTO `cz_category` VALUES ('10', '电池', '3', '', '50', '', '1');
+INSERT INTO `cz_category` VALUES ('1', '手机类型', '0', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('2', '充值卡', '0', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('3', '手机配件', '0', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('4', 'CDMA手机', '1', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('5', '3G手机', '1', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('6', 'iPhone 4s', '5', '50', '个', '1', '0', '', '                                                                                                                                                                                                                                                               ');
+INSERT INTO `cz_category` VALUES ('7', 'iPhone6 Plus ', '5', '50', '个', '1', '0', '', '                                                                                                                                                                                                                                                          肾6哦~~');
+INSERT INTO `cz_category` VALUES ('8', '联通手机充值卡', '2', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('9', '移动手机充值卡', '2', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('10', '耳机', '3', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
+INSERT INTO `cz_category` VALUES ('11', '电池', '3', '50', '个', '1', '0', '', '                                                                                                                                                                        肾6哦~~~!                                                                                ');
 
 -- ----------------------------
 -- Table structure for cz_galary

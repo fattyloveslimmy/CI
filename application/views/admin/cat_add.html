@@ -21,7 +21,7 @@
 		<tbody>
 			<tr>
 				<td class="label">分类名称:</td>
-				<td><input type="text" name="cat_name" maxlength="20" value="" size="27"> <font color="red">*</font></td>
+				<td><input type="text" name="cate_name" maxlength="20" value="" size="27"> <font color="red">*</font></td>
 			</tr>
 			<tr>
 				<td class="label">上级分类:</td>
@@ -29,9 +29,9 @@
 					<select name="parent_id">
 						<option value="0">顶级分类</option>
 						<?php foreach($cates as $cate) : ?>
-						<option value="<?php echo $cate['cat_id'];?>">
+						<option value="<?php echo $cate['cate_id'];?>">
 							<?php echo str_repeat('&nbsp;&nbsp;',$cate['level'])?>
-							<?php echo $cate['cat_name'];?>
+							<?php echo $cate['cate_name'];?>
 						</option>
 						<?php endforeach;?>      
 					</select>
@@ -58,15 +58,15 @@
 			<tr>
 				<td class="label">设置为首页推荐:</td>
 				<td>
-					<input type="checkbox" name="cat_recommend[]" value="1"> 精品          
-					<input type="checkbox" name="cat_recommend[]" value="2"> 最新          
-					<input type="checkbox" name="cat_recommend[]" value="3"> 热门       
+					<input type="checkbox" name="cate_recommend[]" value="1"> 精品
+					<input type="checkbox" name="cate_recommend[]" value="2"> 最新
+					<input type="checkbox" name="cate_recommend[]" value="3"> 热门
 				</td>
 			</tr>
       <tr>
         <td class="label">分类描述:</td>
         <td>
-          <textarea name="cat_desc" rows="6" cols="48"></textarea>
+          <textarea name="cate_description" rows="6" cols="48"></textarea>
         </td>
       </tr>
       </tbody></table>
@@ -75,7 +75,7 @@
         <input type="reset" value=" 重置 ">
       </div>
     <input type="hidden" name="act" value="insert">
-    <input type="hidden" name="old_cat_name" value="">
+    <input type="hidden" name="old_cate_name" value="">
   </form>
 </div>
 
