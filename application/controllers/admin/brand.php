@@ -11,13 +11,18 @@ class Brand extends Admin_Controller {
 
     public function __construct() {
         parent::__construct();
+        $config = array(
+            'upload_path' => './public/upload/brand/' . date('Ymd') . '/',
+            'allowed_types' => 'jpg|png|gif',
+            'max_size' => '500',
+            'max_width' => '1024',
+            'max_height' => '768',
+        );
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
         $this->load->model('Brand_model');
         $this->load->library('form_validation');
-        //配置上传相关参数
-        $config['upload_path'] = './public/upload/'; //上传路径,此处使用的是相对路径,用绝对路径也可以
-        $config['allowed_type'] = 'gif|png|jpg';    //允许上传文件的类型
-        $config['max_size'] = 1000;     //上传文件的最大值, 单位是K
-        $this->load->library('upload', $config);
     }
 
     //显示品牌信息
@@ -40,22 +45,33 @@ class Brand extends Admin_Controller {
             $data['wait'] = 3;
             $this->load->view('message.html', $data);
         } else {
-            $data['brand_name'] = $this->input->post('brand_name', true);
-            $data['url'] = $this->input->post('url', true);
-            $data['brand_description'] = $this->input->post('brand_description', true);
-            $data['sort_order'] = $this->input->post('sort_order', true);
-            $data['is_show'] = $this->input->post('is_show');
+            if ($this->upload->do_upload('logo')) {
+                $imageInfo = $this->upload->data();
+                $logo = $imageInfo['file_name'];//do_upload方法返回缩略图
+                //获取表单提交数据
+                $data['brand_name'] = $this->input->post('brand_name', true);
+                $data['url'] = $this->input->post('url', true);
+                $data['brand_description'] = $this->input->post('brand_description', true);
+                $data['sort_order'] = $this->input->post('sort_order', true);
+                $data['is_show'] = $this->input->post('is_show');
+            } else {
+                //上传失败 , 获取上传失败信息
+                $msg['message'] = $this->upload('logo');
+                $msg['url'] = site_url('admin/brand/add');
+                $msg['wait'] = 3;
+                $this->load->view('message.html', $msg);
+            }
             $result = $this->Brand_model->insert_brand($data);
             if ($result) {
-                $data['message'] = '添加失败,请重新添加';
-                $data['url'] = site_url('admin/brand/add');
-                $data['wait'] = 3;
-                $this->load->view('message.html', $data);
+                $msg['message'] = '添加失败,请重新添加';
+                $msg['url'] = site_url('admin/brand/add');
+                $msg['wait'] = 3;
+                $this->load->view('message.html', $msg);
             } else {
-                $data['message'] = '添加成功';
-                $data['url'] = site_url('admin/brand/index');
-                $data['wait'] = 1;
-                $this->load->view('message.html', $data);
+                $msg['message'] = '添加成功';
+                $msg['url'] = site_url('admin/brand/index');
+                $msg['wait'] = 1;
+                $this->load->view('message.html', $msg);
             }
         }
     }
@@ -76,13 +92,26 @@ class Brand extends Admin_Controller {
             $data['wait'] = 3;
             $this->load->view('message.html', $data);
         } else {
-            $data['brand_name'] = $this->input->post('brand_name', true);
-            $data['url'] = $this->input->post('url', true);
-            $data['brand_description'] = $this->input->post('brand_description', true);
-            $data['sort_order'] = $this->input->post('sort_order', true);
-            $data['is_show'] = $this->input->post('is_show');
+
+            if ($this->Brand_model->do_upload('logo')) {
+                //返回上传图片的信息
+                //载入图像处理类库
+                $this->load->library("image_lib");
+                //获取表单提交数据
+                $data['brand_name'] = $this->input->post('brand_name', true);
+                $data['url'] = $this->input->post('url', true);
+                $data['brand_description'] = $this->input->post('brand_description', true);
+                $data['sort_order'] = $this->input->post('sort_order', true);
+                $data['is_show'] = $this->input->post('is_show');
+            } else {
+                //上传失败 , 获取上传失败信息
+                $msg['message'] = $this->upload->display_errors();
+                $msg['url'] = site_url('admin/brand/add');
+                $msg['wait'] = 5;
+                $this->load->view('message.html', $msg);
+            }
             $result = $this->Brand_model->update_brand($data, $brand_id);
-            if ($result) {
+            if ($result != -1) {
                 $msg['message'] = '修改成功';
                 $msg['url'] = site_url('admin/brand/index');
                 $msg['wait'] = 1;
@@ -95,6 +124,6 @@ class Brand extends Admin_Controller {
             }
         }
     }
-
+    
 
 }
